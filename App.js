@@ -4,9 +4,18 @@ import PokemonCard from "./components/PokemonCard";
 
 export default function App() {
 
+  const charmanderData = {
+    name: "Charmander",
+    image: require("./assets/charmander.png"),
+    type: "Fire",
+    hp: 39,
+    moves: ["Scratch", "Ember", "Growl", "Leer"],
+    weaknesses: ["Water", "Rock"],
+  };
+
   return (
     <SafeAreaView style={styles.container}> 
-      <PokemonCard />
+      <PokemonCard {...charmanderData} />
     </SafeAreaView>
   );
 }
