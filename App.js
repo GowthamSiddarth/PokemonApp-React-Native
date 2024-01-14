@@ -45,13 +45,24 @@ export default function App() {
   };
 
   const firstGenPokemonsPath = `${pokeApiPath}${pokeApiQuery}`;
-  const [firstGenPokemons, setFirstGenPokemons] = useState([]);
+  const [firstGenPokemonsDetails, setFirstGenPokemonsDetails] = useState([])
 
   useEffect(() => {
-    fetch(firstGenPokemonsPath).then(response => setFirstGenPokemons(response.json()));
+    const fetchFirstGenPokemons = async () => {
+      const firstGenPokemonsResponse = await fetch(firstGenPokemonsPath);
+      const firstGenPokemonsResponseBody = await firstGenPokemonsResponse.json();
+
+      const firstGenPokemonsDetails = await Promise.all(
+        firstGenPokemonsResponseBody.results.map(pokemon => fetch(pokemon.url).then(response => response.json()))
+      );
+
+      setFirstGenPokemonsDetails(firstGenPokemonsDetails);
+    }
+
+    fetchFirstGenPokemons();
   }, []);
 
-  console.log(firstGenPokemons);
+  console.log(firstGenPokemonsDetails);
 
   return (
     <SafeAreaView style={styles.container}>
