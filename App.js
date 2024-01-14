@@ -1,6 +1,10 @@
 
 import { StyleSheet, SafeAreaView, Platform, ScrollView } from 'react-native';
 import PokemonCard from "./components/PokemonCard";
+import { useEffect, useState } from 'react';
+
+const pokeApiPath = "https://pokeapi.co/api/v2/";
+const pokeApiQuery = "pokemon?limit=151&offset=0";
 
 export default function App() {
 
@@ -39,6 +43,15 @@ export default function App() {
     moves: ["Quick Attack", "Thunderbolt", "Tail Whip", "Growl"],
     weaknesses: ["Ground"],
   };
+
+  const firstGenPokemonsPath = `${pokeApiPath}${pokeApiQuery}`;
+  const [firstGenPokemons, setFirstGenPokemons] = useState([]);
+
+  useEffect(() => {
+    fetch(firstGenPokemonsPath).then(response => setFirstGenPokemons(response.json()));
+  }, []);
+
+  console.log(firstGenPokemons);
 
   return (
     <SafeAreaView style={styles.container}>
