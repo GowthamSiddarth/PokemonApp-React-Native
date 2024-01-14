@@ -1,5 +1,5 @@
 
-import { StyleSheet, SafeAreaView, Platform, ScrollView } from 'react-native';
+import { StyleSheet, SafeAreaView, Platform, ScrollView, FlatList, Text, View } from 'react-native';
 import PokemonCard from "./components/PokemonCard";
 import { useEffect, useState } from 'react';
 
@@ -46,32 +46,54 @@ export default function App() {
 
   const firstGenPokemonsPath = `${pokeApiPath}${pokeApiQuery}`;
   const [firstGenPokemonsDetails, setFirstGenPokemonsDetails] = useState([])
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchFirstGenPokemons = async () => {
-      const firstGenPokemonsResponse = await fetch(firstGenPokemonsPath);
-      const firstGenPokemonsResponseBody = await firstGenPokemonsResponse.json();
+      try {
+        const firstGenPokemonsResponse = await fetch(firstGenPokemonsPath);
+        const firstGenPokemonsResponseBody = await firstGenPokemonsResponse.json();
 
-      const firstGenPokemonsDetails = await Promise.all(
-        firstGenPokemonsResponseBody.results.map(pokemon => fetch(pokemon.url).then(response => response.json()))
-      );
+        // const promises = firstGenPokemonsResponseBody.results.map(async result => {
+        //   const response = await fetch(result.url);
 
-      setFirstGenPokemonsDetails(firstGenPokemonsDetails);
+        //   if (!response.ok) {
+        //     throw new Error(`Failed to fetch data from ${api}`);
+        //   }
+
+        //   const rawData = await response.json();
+        //   return rawData.name;
+        // });
+
+        // const results = await Promise.all(promises);
+        // const mergedData = results.reduce((acc, result) => acc.concat(result), []);
+
+        // setFirstGenPokemonsDetails(mergedData);
+
+        const firstGenPokemonsNames = firstGenPokemonsResponseBody.results.map(result => result.name);
+        setFirstGenPokemonsDetails(firstGenPokemonsNames);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
     }
-
     fetchFirstGenPokemons();
   }, []);
 
-  console.log(firstGenPokemonsDetails);
+  const renderPokemon = ({ item }) => <View><Text>{item}</Text></View>;
+
+  if (loading) return <Text>Loading...</Text>;
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
+      <FlatList data={firstGenPokemonsDetails} renderItem={renderPokemon} />
+      {/* <ScrollView>
         <PokemonCard {...charmanderData} />
         <PokemonCard {...squirtleData} />
         <PokemonCard {...bulbasaurData} />
         <PokemonCard {...pikachuData} />
-      </ScrollView>
+      </ScrollView> */}
     </SafeAreaView>
   );
 }
