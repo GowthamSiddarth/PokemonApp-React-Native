@@ -1,12 +1,14 @@
 
 import { StyleSheet, SafeAreaView, Platform, FlatList, Text } from 'react-native';
-import PokemonThumbnail from "./PokemonThumbnail";
 import { useEffect, useState } from 'react';
+
+import PokemonThumbnail from "./PokemonThumbnail";
+import LoadingScreen from "./LoadingScreen";
 
 const pokeApiPath = "https://pokeapi.co/api/v2/";
 const pokeApiQuery = "pokemon?limit=151&offset=0";
 
-const FirstGenPokemons = () => {
+const FirstGenPokemons = ({ navigation }) => {
 
     const firstGenPokemonsPath = `${pokeApiPath}${pokeApiQuery}`;
     const [firstGenPokemonsThumbnails, setFirstGenPokemonsThumbnails] = useState([])
@@ -47,7 +49,7 @@ const FirstGenPokemons = () => {
 
     const renderPokemon = ({ item }) => <PokemonThumbnail name={item.name} image={item.image} />;
 
-    if (loading) return <SafeAreaView style={styles.container}><Text>Loading....</Text></SafeAreaView>;
+    if (loading) return <SafeAreaView style={styles.container}><LoadingScreen /></SafeAreaView>;
 
     return (
         <SafeAreaView style={styles.container}>
