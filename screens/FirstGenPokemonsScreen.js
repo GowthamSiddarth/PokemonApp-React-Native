@@ -2,7 +2,7 @@
 import { StyleSheet, SafeAreaView, Platform, FlatList, Text } from 'react-native';
 import { useEffect, useState } from 'react';
 
-import PokemonThumbnail from "./PokemonThumbnail";
+import PokemonThumbnail from "../components/PokemonThumbnail";
 import LoadingScreen from "./LoadingScreen";
 
 const pokeApiPath = "https://pokeapi.co/api/v2/";

@@ -1,8 +1,8 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import FirstGenPokemons from "./components/FirstGenPokemonsScreen";
-import HomeScreen from "./components/HomeScreen";
+import FirstGenPokemons from "./screens/FirstGenPokemonsScreen";
+import HomeScreen from "./screens/HomeScreen";
 
 const Stack = createNativeStackNavigator();
 
