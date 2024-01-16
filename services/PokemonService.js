@@ -1,27 +1,47 @@
 // src/services/PokemonService.js
 
 import api from "../helpers/api";
+import createPokemon from "../models/Pokemon";
 
-const fetchPokemonById = async (pokemonId) => {
-    const pokeApiQuery = `pokemon/${pokemonId}`;
+const PokemonService = {
 
-    return api.get(pokeApiQuery)
-        .then((pokemonData) => ({ id: pokemonData.id, weight: pokemonData.weight, image: pokemonData.sprites.other['official-artwork']['front_default'] }))
-        .catch((error) => {
-            console.log("Error in fetchPokemonById: ", error.message);
-            throw error;
-        });
+    fetchPokemonById: (pokemonId) => {
+        const pokeApiQuery = `pokemon/${pokemonId}`;
+
+        return api.get(pokeApiQuery)
+            .then((pokemonData) => {
+                const pokemon = createPokemon({
+                    id: pokemonData.id,
+                    weight: pokemonData.weight,
+                    image: pokemonData.sprites.other['official-artwork']['front_default']
+                });
+
+                return pokemon;
+            })
+            .catch((error) => {
+                console.log("Error in PokemonService.fetchPokemonById: ", error.message);
+                throw error;
+            });
+    },
+
+    fetchPokemonByName: (pokemonName) => {
+        const pokeApiQuery = `pokemon/${pokemonName}`;
+
+        return api.get(pokeApiQuery)
+            .then((pokemonData) => {
+                const pokemon = createPokemon({
+                    id: pokemonData.id,
+                    weight: pokemonData.weight,
+                    image: pokemonData.sprites.other['official-artwork']['front_default']
+                });
+
+                return pokemon;
+            })
+            .catch((error) => {
+                console.log("Error in PokemonService.fetchPokemonByName: ", error.message);
+                throw error;
+            });
+    }
 }
 
-const fetchPokemonByName = async (pokemonName) => {
-    const pokeApiQuery = `pokemon/${pokemonName}`;
-
-    return api.get(pokeApiQuery)
-        .then((pokemonData) => ({ id: pokemonData.id, weight: pokemonData.weight, image: pokemonData.sprites.other['official-artwork']['front_default'] }))
-        .catch((error) => {
-            console.log("Error in fetchPokemonById: ", error.message);
-            throw error;
-        });
-}
-
-export { fetchPokemonById, fetchPokemonByName };
+export default PokemonService;
