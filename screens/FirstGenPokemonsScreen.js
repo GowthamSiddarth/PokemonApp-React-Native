@@ -1,42 +1,21 @@
 
-import { StyleSheet, SafeAreaView, Platform, FlatList, Text } from 'react-native';
+import { StyleSheet, SafeAreaView, Platform, FlatList } from 'react-native';
 import { useEffect, useState } from 'react';
 
 import PokemonThumbnail from "../components/PokemonThumbnail";
 import LoadingScreen from "./LoadingScreen";
 
-const pokeApiPath = "https://pokeapi.co/api/v2/";
-const pokeApiQuery = "pokemon?limit=151&offset=0";
+import PokemonController from '../controllers/PokemonController';
 
-const FirstGenPokemons = ({ navigation }) => {
+const FirstGenPokemonsScreen = ({ navigation }) => {
 
-    const firstGenPokemonsPath = `${pokeApiPath}${pokeApiQuery}`;
     const [firstGenPokemonsThumbnails, setFirstGenPokemonsThumbnails] = useState([])
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchFirstGenPokemons = async () => {
-            const firstGenPokemonsResponse = await fetch(firstGenPokemonsPath);
-            const firstGenPokemonsResponseBody = await firstGenPokemonsResponse.json();
             try {
-                const promises = firstGenPokemonsResponseBody.results.map(async result => {
-                    const pokemonUrl = result.url;
-                    const pokemonResponse = await fetch(pokemonUrl);
-
-                    if (!pokemonResponse.ok) {
-                        throw new Error(`Failed to fetch data from ${pokemonUrl}`);
-                    }
-
-                    const pokemonResponseBody = await pokemonResponse.json();
-                    return {
-                        "name": result.name.charAt(0).toUpperCase() + result.name.slice(1),
-                        "image": pokemonResponseBody.sprites.front_default
-                    };
-                });
-
-                const responses = await Promise.all(promises);
-                const mergedResponse = responses.reduce((acc, response) => acc.concat(response), []);
-                setFirstGenPokemonsThumbnails(mergedResponse);
+                PokemonController.fetchFirstGenPokemons().then(firstGenPokemons => setFirstGenPokemonsThumbnails(firstGenPokemons));
             } catch (error) {
                 console.error('Error fetching data:', error);
             } finally {
@@ -69,4 +48,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default FirstGenPokemons;
+export default FirstGenPokemonsScreen;
