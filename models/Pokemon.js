@@ -1,6 +1,6 @@
 // src/models/Pokemon.js
 
-const createPokemon = (id, weight, image) => {
+const createPokemon = ({ id, weight, image }) => {
 
     let _id = id;
     let _weight = weight;
