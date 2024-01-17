@@ -53,7 +53,7 @@ const PokemonService = {
                         .then(pokemonResponseBody => {
                             const pokemon = {
                                 "name": result.name.charAt(0).toUpperCase() + result.name.slice(1),
-                                "image": pokemonResponseBody.sprites.front_default
+                                "image": `${pokemonResponseBody['sprites']['other']["official-artwork"]["front_default"]}`
                             };
                             return pokemon;
                         })
