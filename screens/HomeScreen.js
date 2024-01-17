@@ -4,7 +4,7 @@ import { StyleSheet, View, Text, Button, SafeAreaView } from "react-native";
 
 const HomeScreen = ({ navigation }) => (
     <SafeAreaView>
-        <View style={[styles.container, styles.horizontal]}>
+        <View>
             <View><Text>Welcome</Text></View>
             <View><Button
                 title="FirstGenPokemons"
@@ -12,7 +12,6 @@ const HomeScreen = ({ navigation }) => (
             /></View>
         </View>
     </SafeAreaView>
-
 );
 
 const styles = StyleSheet.create({
