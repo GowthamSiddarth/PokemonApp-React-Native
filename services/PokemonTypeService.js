@@ -47,16 +47,18 @@ const PokemonTypeService = {
         return api.getWithEndpoint(pokeApiQuery)
             .then(pokemonTypesData => {
                 const promises = pokemonTypesData.results.map(result => {
-                    const typeName = result.name;
-                    const typeUrl = result.url;
+                    const typeName = result['name'];
+                    const typeUrl = result['url'];
                     const typeId = parseInt(typeUrl.substring(typeUrl.indexOf('type') + 5, typeUrl.lastIndexOf('/')));
 
-                    const pokemonType = createPokemonType({ typeId, typeName });
-                    return pokemonType;
+                    // createPokemonType({ typeId, typeName });
+                    return typeName;
                 });
 
                 return Promise.all(promises)
-                    .then(results => results)
+                    .then(results => {
+                        return results;
+                    })
                     .catch(error => {
                         console.log("Error resolving promises at PokemonTypeService.fetchAllPokemonTypes", error.message);
                         throw error;
