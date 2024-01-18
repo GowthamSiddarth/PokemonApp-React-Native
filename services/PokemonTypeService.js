@@ -4,6 +4,7 @@ import api from "../helpers/api";
 import createPokemonType from "../models/PokemonType";
 
 const PokemonTypeService = {
+
     fetchPokemonTypeById: (pokemonTypeId) => {
         const pokeApiQuery = `type/${pokemonTypeId}`;
 
@@ -33,6 +34,33 @@ const PokemonTypeService = {
                 });
 
                 return pokemonType;
+            })
+            .catch(error => {
+                console.log("Error in PokemonTypeService.fetchPokemonTypeById:", error.message);
+                throw error;
+            })
+    },
+
+    fetchAllPokemonTypes: () => {
+        const pokeApiQuery = `type`;
+
+        return api.getWithEndpoint(pokeApiQuery)
+            .then(pokemonTypesData => {
+                const promises = pokemonTypesData.results.map(result => {
+                    const typeName = result.name;
+                    const typeUrl = result.url;
+                    const typeId = parseInt(typeUrl.substring(typeUrl.indexOf('type') + 5, typeUrl.lastIndexOf('/')));
+
+                    const pokemonType = createPokemonType({ typeId, typeName });
+                    return pokemonType;
+                });
+
+                return Promise.all(promises)
+                    .then(results => results)
+                    .catch(error => {
+                        console.log("Error resolving promises at PokemonTypeService.fetchAllPokemonTypes", error.message);
+                        throw error;
+                    })
             })
             .catch(error => {
                 console.log("Error in PokemonTypeService.fetchPokemonTypeById:", error.message);
