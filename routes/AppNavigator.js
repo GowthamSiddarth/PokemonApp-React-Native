@@ -3,7 +3,8 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import FirstGenPokemons from "../screens/FirstGenPokemonsScreen";
+import FirstGenPokemonsScreen from "../screens/FirstGenPokemonsScreen";
+import PokemonTypesScreen from "../screens/PokemonTypeScreen";
 import HomeScreen from "../screens/HomeScreen";
 
 const Stack = createNativeStackNavigator();
@@ -17,7 +18,11 @@ const AppNavigator = () => (
             />
             <Stack.Screen
                 name="FirstGenPokemons"
-                component={FirstGenPokemons}
+                component={FirstGenPokemonsScreen}
+            />
+            <Stack.Screen
+                name="PokemonTypes"
+                component={PokemonTypesScreen}
             />
         </Stack.Navigator>
     </NavigationContainer>
