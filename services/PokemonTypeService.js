@@ -21,6 +21,24 @@ const PokemonTypeService = {
                 throw error;
             })
     },
+
+    fetchPokemonTypeByName: (pokemonTypeName) => {
+        const pokeApiQuery = `type/${pokemonTypeName}`;
+
+        return api.getWithEndpoint(pokeApiQuery)
+            .then(pokemonTypeData => {
+                const pokemonType = createPokemonType({
+                    id: pokemonTypeData.id,
+                    name: pokemonTypeData.name
+                });
+
+                return pokemonType;
+            })
+            .catch(error => {
+                console.log("Error in PokemonTypeService.fetchPokemonTypeById:", error.message);
+                throw error;
+            })
+    },
 };
 
 export default PokemonTypeService;
