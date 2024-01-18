@@ -29,7 +29,7 @@ const FirstGenPokemonsScreen = ({ navigation }) => {
 
     const renderPokemon = ({ item }) => <PokemonThumbnail name={item.name} image={item.image} />;
 
-    if (loading) return <SafeAreaView style={styles.container}><LoadingScreen /></SafeAreaView>;
+    if (loading) return <SafeAreaView><LoadingScreen /></SafeAreaView>;
 
     return (
         <SafeAreaView style={styles.container}>

@@ -2,11 +2,13 @@ import React from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 
 
-const LoadingScreen = () => (
-    <View style={[styles.container, styles.horizontal]}>
-        <ActivityIndicator size="large" />
-    </View>
-);
+const LoadingScreen = () => {
+    return (
+        <View>
+            <ActivityIndicator size="large" />
+        </View>
+    )
+};
 
 const styles = StyleSheet.create({
     container: {
