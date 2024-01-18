@@ -6,10 +6,18 @@ const HomeScreen = ({ navigation }) => (
     <SafeAreaView>
         <View>
             <View><Text>Welcome</Text></View>
-            <View><Button
-                title="FirstGenPokemons"
-                onPress={() => navigation.navigate('FirstGenPokemons')}
-            /></View>
+            <View>
+                <Button
+                    title="FirstGenPokemons"
+                    onPress={() => navigation.navigate('FirstGenPokemons')}
+                />
+            </View>
+            <View>
+                <Button
+                    title="PokemonTypes"
+                    onPress={() => navigation.navigate('PokemonTypes')}
+                />
+            </View>
         </View>
     </SafeAreaView>
 );
