@@ -18,6 +18,12 @@ const HomeScreen = ({ navigation }) => (
                     onPress={() => navigation.navigate('PokemonTypes')}
                 />
             </View>
+            <View>
+                <Button
+                    title="PokemonColors"
+                    onPress={() => navigation.navigate('PokemonColors')}
+                />
+            </View>
         </View>
     </SafeAreaView>
 );
