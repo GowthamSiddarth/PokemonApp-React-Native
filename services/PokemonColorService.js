@@ -56,3 +56,5 @@ const PokemonColorService = {
             });
     },
 };
+
+export default PokemonColorService;
