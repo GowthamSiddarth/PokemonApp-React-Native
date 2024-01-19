@@ -43,8 +43,7 @@ const PokemonColorService = {
                     const colorId = parseInt(colorUrl.substring(colorUrl.indexOf('pokemon-color') + 14, colorUrl.lastIndexOf('/')));
 
                     const pokemonColor = createPokemonColor({ colorId, colorName });
-                    console.log(pokemonColor);
-                    return pokemonColor;
+                    return colorName;
                 });
 
                 return Promise.all(promises)
